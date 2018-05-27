@@ -15,14 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-#from .views import *
-from .feeds import  views
-
+from feeds import views
 
 #from . import views
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('profiles/',views.ListProfile.as_view(),name=views.ListProfile.name),
-
+    path('profiles/',views.ListProfileModel.as_view(),name=views.ListProfileModel.name),
+    path('profiles/<int:pk>/',views.ListProfileModelDetail.as_view(),name=views.ListProfileModelDetail.name),
 ]
