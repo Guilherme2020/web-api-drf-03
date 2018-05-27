@@ -41,12 +41,12 @@ class Command(BaseCommand):
 
         for p in posts:
             post = Post()
-            post.user = User.objects.get(pk=p['userId'])
+            post.profile = Profile.objects.get(user=User.objects.get(id=p['userId']))
             post.body = p.get('body') or 'sem corpo'
             post.title = p.get('title') or 'sem title'
             post.save()
 
-        comments  = dados['comments']
+        comments = dados['comments']
         for c in comments:
             com = Comment()
             com.name = c['name']

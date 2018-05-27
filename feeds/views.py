@@ -7,7 +7,7 @@ from .models import *
 from rest_framework.response import Response
 
 
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, PostSerializer
 
 
 class ListProfileModel(generics.ListCreateAPIView):
@@ -23,6 +23,7 @@ class ListProfileModelDetail(generics.RetrieveAPIView):
 
 class ListProfilePostsModel(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-
+    serializer_class = PostSerializer
+    name = 'profile-post'
 class ListProfilePostsModelDetail():
     pass
