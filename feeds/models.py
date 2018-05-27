@@ -4,15 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Post(models.Model):
-
-    title = models.CharField(max_length=200)
-    body = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-
 class Address(models.Model):
 
     zipcode = models.CharField(max_length=255)
@@ -23,6 +14,17 @@ class Address(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     address = models.OneToOneField(Address,on_delete = models.CASCADE)
+
+class Post(models.Model):
+
+    title = models.CharField(max_length=200)
+    body = models.CharField(max_length=200)
+#    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     name = models.CharField(max_length=200)

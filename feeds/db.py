@@ -11,6 +11,7 @@ dados = json.load(file)
 users = dados['users']
 
 for u in users:
+
     u['address'].pop('geo')
     address = Address(**u['address'])
     address.save()
@@ -22,11 +23,17 @@ for u in users:
     user.address = address
     user.save()
 
+    profile = Profile()
+    profile.user = user
+    profile.address = address
+    profile.save()
+
+
 posts = dados['posts']
 
 for p in posts:
   post = Post()
-  post.user = User.objects.get(pk=p['userId'])
+  post.profile = Profile.objects.get(user=User.objects.get(id=p['userId']))
   post.body = p.get('body') or 'sem corpo'
   post.title = p.get('title') or 'sem title'
   post.save()
@@ -39,8 +46,3 @@ for c in comments:
   com.body = c['body']
   com.post = Post.objects.get(pk=c['postId'])
   com.save()
-
-profile = Profile()
-profile.user = user
-profile.address = address
-profile.save()

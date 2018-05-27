@@ -14,15 +14,6 @@ class AddressSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Address
         fields = ('zipcode','street','city','suite')
-
-class  PostSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = (
-            'title','body','user'
-        )
-
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     address = AddressSerializer()
@@ -32,6 +23,15 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'user','address'
         )
+class  PostSerializer(serializers.HyperlinkedModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = Post
+        fields = (
+            'title','body','profile'
+        )
+
+
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
