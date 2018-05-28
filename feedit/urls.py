@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profiles/',views.ListProfileModel.as_view(),name=views.ListProfileModel.name),
     path('profiles/<int:pk>/',views.ListProfileModelDetail.as_view(),name=views.ListProfileModelDetail.name),
+    path('profiles-post/',views.ListProfilePostsModel.as_view(),name=views.ListProfilePostsModel.name),
+    path('profiles-post/<int:pk>/',views.ListProfilePostsModelDetail.as_view(),name=views.ListProfilePostsModelDetail.name),
 ]

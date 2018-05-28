@@ -7,7 +7,7 @@ from .models import *
 from rest_framework.response import Response
 
 
-from .serializers import ProfileSerializer, PostSerializer
+from .serializers import ProfileSerializer, PostSerializer, PostSerializerDetails
 
 
 class ListProfileModel(generics.ListCreateAPIView):
@@ -17,13 +17,18 @@ class ListProfileModel(generics.ListCreateAPIView):
     name = 'list-profile'
 
 class ListProfileModelDetail(generics.RetrieveAPIView):
+
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     name = 'profile-detail'
 
 class ListProfilePostsModel(generics.ListCreateAPIView):
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     name = 'profile-post'
-class ListProfilePostsModelDetail():
-    pass
+
+class ListProfilePostsModelDetail(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializerDetails
+    name = 'profile-post-detail'
