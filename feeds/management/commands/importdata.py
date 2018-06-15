@@ -25,10 +25,12 @@ class Command(BaseCommand):
             address = Address(**u['address'])
             address.save()
 
-            user = User()
-            user.username = u['username']
-            user.email = u['email']
-            user.password = 'abcd@1234'
+            #user = User()
+            #user.username = u['username']
+            #user.email = u['email']
+            password = 'abcd@1234'
+
+            user = User.objects.create_user(u['username'],u['email'],password)
             user.address = address
             user.save()
 

@@ -33,12 +33,14 @@ class  PostSerializer(serializers.HyperlinkedModelSerializer):
 
 class PostSerializerDetails(serializers.HyperlinkedModelSerializer):
 
-    post = PostSerializer()
-    profile = ProfileSerializer()
-    count_comments =  serializers.SerializerMethodField()
+   # post = PostSerializer()
+   # profile = ProfileSerializer()
+    #count_comments =  serializers.SerializerMethodField()
 
     class Meta:
         model = Post
+        fields = ('url','title')
+
     def get_count_comments(self,obj):
         post = Post.objects.get(id=obj.pk)
         quantidade = Comment.objects.filter(post=post).count()
