@@ -3,12 +3,20 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import mixins, generics
 from rest_framework.generics import GenericAPIView
+from rest_framework.reverse import reverse
+
 from .models import *
 from rest_framework.response import Response
 
 
 from .serializers import ProfileSerializer, PostSerializer, PostSerializerDetails
 
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+    def get(self,request,*args,**kwargs):
+        return Response({
+            'profiles': reverse(ListProfileModel.name,request=request),
+        })
 
 class ListProfileModel(generics.ListCreateAPIView):
 
