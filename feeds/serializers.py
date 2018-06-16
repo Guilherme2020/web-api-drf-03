@@ -47,12 +47,13 @@ class PostSerializerDetails(serializers.HyperlinkedModelSerializer):
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     post = PostSerializer()
     class Meta:
-        model: Comment
+        model = Comment
         fields = (
             'name',
-           'email',
+            'email',
             'body',
             'post'
 
         )
 
+#CommentSerializerDetails(serializers.)
