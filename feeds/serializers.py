@@ -8,7 +8,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'username','email',
         )
-
 class AddressSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
@@ -46,7 +45,7 @@ class PostSerializerDetails(serializers.HyperlinkedModelSerializer):
         quantidade = Comment.objects.filter(post=post).count()
         return quantidade
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
-
+    post = PostSerializer()
     class Meta:
         model: Comment
         fields = (
