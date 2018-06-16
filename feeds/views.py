@@ -40,7 +40,7 @@ class UserDetail(generics.RetrieveAPIView):
         permissions.IsAuthenticatedOrReadOnly
     )
 
-class ListProfileModel(generics.ListCreateAPIView,generics.DestroyAPIView):
+class ListProfileModel(generics.ListCreateAPIView):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -49,7 +49,7 @@ class ListProfileModel(generics.ListCreateAPIView,generics.DestroyAPIView):
         permissions.IsAuthenticated,
     )
 
-class ListProfileModelDetail(generics.RetrieveAPIView,generics.DestroyAPIView):
+class ListProfileModelDetail(generics.RetrieveAPIView):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -58,7 +58,7 @@ class ListProfileModelDetail(generics.RetrieveAPIView,generics.DestroyAPIView):
         permissions.IsAuthenticated,
     )
 
-class ListProfilePostsModel(generics.ListCreateAPIView,generics.DestroyAPIView):
+class ListProfilePostsModel(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -68,7 +68,7 @@ class ListProfilePostsModel(generics.ListCreateAPIView,generics.DestroyAPIView):
         permissions.IsAuthenticated,
     )
 
-class ListProfilePostsModelDetail(generics.RetrieveAPIView,generics.DestroyAPIView):
+class ListProfilePostsModelDetail(generics.RetrieveAPIView,generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     name = 'profile-post-detail'
@@ -77,7 +77,7 @@ class ListProfilePostsModelDetail(generics.RetrieveAPIView,generics.DestroyAPIVi
         IsOwnerPost
     )
 
-class ListPostCommentModel(generics.ListCreateAPIView,generics.DestroyAPIView):
+class ListPostCommentModel(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
     queryset =  Comment.objects.all()
     serializer_class = CommentSerializer
     name = 'list-comment'
@@ -85,7 +85,7 @@ class ListPostCommentModel(generics.ListCreateAPIView,generics.DestroyAPIView):
         IsOwnerPost,
         permissions.IsAuthenticated,
     )
-class ListPostCommentModelDetail(generics.RetrieveAPIView,generics.DestroyAPIView):
+class ListPostCommentModelDetail(generics.RetrieveAPIView,generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     name = 'list-comment-detail'
