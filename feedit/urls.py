@@ -31,6 +31,6 @@ urlpatterns = [
 
     path('profiles-post/',views.ListProfilePostsModel.as_view(),name=views.ListProfilePostsModel.name),
     path('profiles-post/<int:pk>/',views.ListProfilePostsModelDetail.as_view(),name=views.ListProfilePostsModelDetail.name),
-
+    path('api-token-auth2/',views.CustomAuthToken.as_view()),
     path('api-auth/', include('rest_framework.urls')),
 ]

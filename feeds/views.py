@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import mixins, generics, permissions
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import GenericAPIView
 from rest_framework.reverse import reverse
 
@@ -12,13 +14,31 @@ from rest_framework.response import Response
 from .permissions import IsOwnerPost, IsOwnerPostFromCommentRelated
 
 from .serializers import ProfileSerializer, PostSerializer, PostSerializerDetails,UserSerializer,CommentSerializer
+from rest_framework.authtoken.views import obtain_auth_token
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self,request,*args,**kwargs):
+        serializer  = self.serializer_class(data=request.data,
+                                            context={
+                                                'request': request
+                                            })
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token,created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token':token.key,
+            'user_id': user.pk,
+            'name': user.name,
+
+        })
 
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
     def get(self,request,*args,**kwargs):
         return Response({
             'profiles': reverse(ListProfileModel.name,request=request),
-            'comments': reverse(ListPostCommentModel.name,request=request)
+            'comments': reverse(ListPostCommentModel.name,request=request),
+            'users':reverse(UserList.name,request=request)
         })
 
     #permission_classes = (
@@ -58,7 +78,7 @@ class ListProfileModelDetail(generics.RetrieveAPIView):
         permissions.IsAuthenticated,
     )
 
-class ListProfilePostsModel(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+class ListProfilePostsModel(generics.ListCreateAPIView,):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -77,7 +97,7 @@ class ListProfilePostsModelDetail(generics.RetrieveAPIView,generics.RetrieveUpda
         IsOwnerPost
     )
 
-class ListPostCommentModel(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+class ListPostCommentModel(generics.ListCreateAPIView,):
     queryset =  Comment.objects.all()
     serializer_class = CommentSerializer
     name = 'list-comment'
