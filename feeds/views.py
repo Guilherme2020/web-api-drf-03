@@ -36,7 +36,7 @@ class CustomAuthToken(ObtainAuthToken):
         return Response({
             'token':token.key,
             'user_id': user.pk,
-            'name': user.name,
+            'username': user.username
 
         })
 
@@ -46,7 +46,8 @@ class ApiRoot(generics.GenericAPIView):
         return Response({
             'profiles': reverse(ListProfileModel.name,request=request),
             'comments': reverse(ListPostCommentModel.name,request=request),
-            'users':reverse(UserList.name,request=request)
+            'users':reverse(UserList.name,request=request),
+            'profiles-post':reverse(ListProfilePostsModel.name,request=request)
         })
 
     #permission_classes = (
