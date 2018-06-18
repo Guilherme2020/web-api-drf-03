@@ -4,11 +4,11 @@ from django.urls import include, path, reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, URLPatternsTestCase
 
-from feedit.feeds import views
-from .models import *
+from feeds import views
 
 
 # Create your tests here.
+# from feedit.feeds import views
 
 
 class ApiRootTest(APITestCase,URLPatternsTestCase):
