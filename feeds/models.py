@@ -12,7 +12,7 @@ class Address(models.Model):
     street = models.CharField(max_length=255)
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='users')
     address = models.OneToOneField(Address,on_delete = models.CASCADE)
 
 class Post(models.Model):

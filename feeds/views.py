@@ -61,12 +61,12 @@ class UserList(generics.ListAPIView):
     permission_classes = (
         permissions.IsAuthenticated,
     )
-class UserDetail(generics.RetrieveAPIView,generics.RetrieveUpdateDestroyAPIView):
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
     permission_classes = (
-        permissions.IsAuthenticated
+        permissions.IsAuthenticated,
     )
 
 class ListProfileModel(generics.ListCreateAPIView):
